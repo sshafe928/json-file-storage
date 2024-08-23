@@ -67,29 +67,54 @@ app.get('/view-data', (req, res) => {
                     <p><strong>Gmail Input:</strong></p>
                     <p>${item.email}</p>
                 </div>
+                <button class="delete-button" data-id="${item.id}">Delete</button>
             </div>
         `).join('');
 
         res.send(`
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>History Page</title>
-                <link rel="stylesheet" href="styles.css">
-            </head>
+
             <body>
                 <div class="container">
-                    <h1>Data History</h1>
                     <div class="history-list">
                         ${historyItems}
-                    </div>
-                    <a href="/" class="back-link">Go Back to Home</a>
-                </div>
             </body>
             </html>
         `);
+    });
+});
+
+app.delete('/delete-entry/:id', (req, res) => {
+    const entryId = req.params.id;
+    const filePath = path.join(__dirname, 'data.json');
+
+    fs.readFile(filePath, (err, fileData) => {
+        if (err) {
+            return res.status(500).send('Error reading data file.');
+        }
+
+        let jsonData;
+        try {
+            jsonData = JSON.parse(fileData);
+        } catch (parseErr) {
+            return res.status(500).send('Error parsing data file.');
+        }
+
+        // Find the index of the entry to delete
+        const index = jsonData.findIndex(item => item.id === entryId);
+        if (index === -1) {
+            return res.status(404).send('Entry not found.');
+        }
+
+        // Remove the entry
+        jsonData.splice(index, 1);
+
+        // Write updated data back to file
+        fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), (err) => {
+            if (err) {
+                return res.status(500).send('Error writing data file.');
+            }
+            res.json({ success: true });
+        });
     });
 });
 

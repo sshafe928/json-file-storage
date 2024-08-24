@@ -56,16 +56,30 @@ app.get('/view-data', (req, res) => {
             return;
         }
 
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
         const historyItems = jsonData.map((item, index) => `
+            
             <div class="history-item">
-                <h2>Entry ${index + 1}</h2>
-                <div class="message">
-                    <p><strong>Message:</strong></p>
-                    <p>${item.message}</p>
+                <h2 id = "${index + 1}">${item.category}</h2>
+                <div class="date">
+                    <p><strong>Date:</strong></p>
+                    <p>${item.date}</p>
                 </div>
-                <div class="email">
-                    <p><strong>Gmail Input:</strong></p>
-                    <p>${item.email}</p>
+                <div class="quantity">
+                    <p><strong>Quantity:</strong></p>
+                    <p>${item.quantity}</p>
+                </div>
+                <div class="where">
+                    <p><strong>Where:</strong></p>
+                    <p>${item.where}</p>
+                </div>
+                <div class="notes">
+                    <p><strong>Notes:</strong></p>
+                    <p>${item.notes}</p>
                 </div>
                 <button class="delete-button" data-id="${item.id}">Delete</button>
             </div>
@@ -86,7 +100,7 @@ app.get('/view-data', (req, res) => {
 app.delete('/delete-entry/:id', (req, res) => {
     const entryId = req.params.id;
     const filePath = path.join(__dirname, 'data.json');
-
+    
     fs.readFile(filePath, (err, fileData) => {
         if (err) {
             return res.status(500).send('Error reading data file.');
@@ -99,8 +113,15 @@ app.delete('/delete-entry/:id', (req, res) => {
             return res.status(500).send('Error parsing data file.');
         }
 
-        // Find the index of the entry to delete
-        const index = jsonData.findIndex(item => item.id === entryId);
+        // Debug output to check jsonData
+        console.log('JSON Data:', jsonData);
+        
+        // Ensure entryId and item.id are of the same type
+        const index = jsonData.findIndex(item => String(item.id) === String(entryId));
+        
+        console.log('Entry ID:', entryId);
+        console.log('Index:', index);
+
         if (index === -1) {
             return res.status(404).send('Entry not found.');
         }

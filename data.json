@@ -1,47 +1,16 @@
 [
   {
-    "name": "Sabrina A Shafer",
-    "email": "sshafe928@west-mec.org",
-    "message": "4o3nfif"
+    "category": "Expense",
+    "date": "2018-07-22",
+    "quantity": "-60",
+    "where": "Education",
+    "notes": "School trip"
   },
   {
-    "name": "Alan",
-    "email": "sanches@gmai.com",
-    "message": "im gay"
-  },
-  {
-    "name": "Noelle",
-    "email": "noelle@gmail.com",
-    "message": "hello pookie"
-  },
-  {
-    "name": "Sabrina A Shafer",
-    "email": "sshafe928@west-mec.org",
-    "message": "I cant belive that this works."
-  },
-  {
-    "name": "Sabrina A Shafer",
-    "email": "sshafe928@west-mec.org",
-    "message": "this is a new message"
-  },
-  {
-    "name": "Sabrina A Shafer",
-    "email": "sshafe928@west-mec.org",
-    "message": "hello"
-  },
-  {
-    "name": "jhon",
-    "email": "jhon@gmail.com",
-    "message": "hello"
-  },
-  {
-    "name": "audrey",
-    "email": "audrey@gmail.com",
-    "message": "pookie bear"
-  },
-  {
-    "name": "Asian",
-    "email": "asianSabrina@gmail.com",
-    "message": "Sabrina is slightly squinty"
+    "category": "Expense",
+    "date": "2024-07-17",
+    "quantity": "-60",
+    "where": "Insurance",
+    "notes": "they stole my money"
   }
 ]
